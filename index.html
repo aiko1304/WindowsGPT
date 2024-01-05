@@ -166,10 +166,11 @@
   </div>
 
   <div class="desktop">
-    <div class="icon" onclick="openProgram"
-      ('Icon 1')">Icon 1</div>
+    <div class="icon" onclick="openProgram('Icon 1')">Icon 1</div>
     <div class="icon" onclick="openProgram('Icon 2')">Icon 2</div>
     <div class="icon" onclick="openProgram('Icon 3')">Icon 3</div>
+    <div class="icon" onclick="openControlPanel()">Control Panel</div>
+    <div class="icon" onclick="openPaint()">Paint</div>
     <!-- Add more icons as needed -->
   </div>
 
@@ -181,6 +182,31 @@
     <div class="content">
       <!-- Your window content goes here -->
       <p>Hello, this is a movable window!</p>
+    </div>
+  </div>
+
+  <!-- Control Panel Window -->
+  <div class="window" id="controlPanelWindow" style="display: none;">
+    <div class="title-bar" onmousedown="startDragging(event)">
+      <div class="window-title">Control Panel</div>
+      <button class="close-button" onclick="closeControlPanel()">X</button>
+    </div>
+    <div class="content">
+      <!-- Control Panel content goes here -->
+     
+      <p>This is the Control Panel window content.</p>
+    </div>
+  </div>
+
+  <!-- Paint Window -->
+  <div class="window" id="paintWindow" style="display: none;">
+    <div class="title-bar" onmousedown="startDragging(event)">
+      <div class="window-title">Paint</div>
+      <button class="close-button" onclick="closePaint()">X</button>
+    </div>
+    <div class="content">
+      <!-- Paint content goes here -->
+      <p>Welcome to Paint! Let your creativity flow.</p>
     </div>
   </div>
 
@@ -228,7 +254,22 @@
       var window = document.getElementById('movableWindow');
       window.style.display = 'none';
     }
+
+    function openControlPanel() {
+      document.getElementById('controlPanelWindow').style.display = 'block';
+    }
+
+    function closeControlPanel() {
+      document.getElementById('controlPanelWindow').style.display = 'none';
+    }
+
+    function openPaint() {
+      document.getElementById('paintWindow').style.display = 'block';
+    }
+
+    function closePaint() {
+      document.getElementById('paintWindow').style.display = 'none';
+    }
   </script>
 </body>
 </html>
-
