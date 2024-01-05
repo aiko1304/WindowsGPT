@@ -33,6 +33,30 @@
       cursor: pointer;
     }
 
+    .desktop {
+      position: absolute;
+      top: 40px; /* Height of the taskbar */
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: auto;
+      padding: 10px;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      background-color: #0078d4;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      float: left;
+      cursor: pointer;
+    }
+
     .window {
       width: 400px;
       height: 300px;
@@ -54,12 +78,45 @@
     .content {
       padding: 10px;
     }
+
+    /* Start Menu Styles */
+    .start-menu {
+      display: none;
+      position: absolute;
+      top: 40px; /* Height of the taskbar */
+      left: 0;
+      background-color: #1e1e1e;
+      color: white;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .start-menu-button {
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="taskbar">
-    <button class="taskbar-button">Start</button>
+    <button class="taskbar-button" onclick="toggleStartMenu()">Start</button>
     <!-- Add more taskbar buttons as needed -->
+  </div>
+
+  <div class="desktop">
+    <div class="icon">Icon 1</div>
+    <div class="icon">Icon 2</div>
+    <div class="icon">Icon 3</div>
+    <!-- Add more icons as needed -->
+  </div>
+
+  <div class="start-menu" id="startMenu">
+    <button class="start-menu-button">Program 1</button>
+    <button class="start-menu-button">Program 2</button>
+    <!-- Add more start menu items as needed -->
   </div>
 
   <div class="window">
@@ -69,5 +126,12 @@
       <p>Hello, this is a simple window!</p>
     </div>
   </div>
+
+  <script>
+    function toggleStartMenu() {
+      var startMenu = document.getElementById('startMenu');
+      startMenu.style.display = (startMenu.style.display === 'block') ? 'none' : 'block';
+    }
+  </script>
 </body>
 </html>
