@@ -66,13 +66,14 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      cursor: move;
     }
 
     .title-bar {
       background-color: #0078d4;
       color: #fff;
       padding: 10px;
-      cursor: move;
+      user-select: none;
     }
 
     .content {
@@ -119,15 +120,40 @@
     <!-- Add more start menu items as needed -->
   </div>
 
-  <div class="window">
-    <div class="title-bar">Window Title</div>
+  <div class="window" id="movableWindow">
+    <div class="title-bar" onmousedown="startDragging(event)">Window Title</div>
     <div class="content">
       <!-- Your window content goes here -->
-      <p>Hello, this is a simple window!</p>
+      <p>Hello, this is a movable window!</p>
     </div>
   </div>
 
   <script>
+    var isDragging = false;
+    var offsetX, offsetY;
+
+    function startDragging(e) {
+      isDragging = true;
+      offsetX = e.clientX - parseFloat(window.getComputedStyle(document.getElementById('movableWindow')).left);
+      offsetY = e.clientY - parseFloat(window.getComputedStyle(document.getElementById('movableWindow')).top);
+
+      document.addEventListener('mousemove', whileDragging);
+      document.addEventListener('mouseup', stopDragging);
+    }
+
+    function whileDragging(e) {
+      if (isDragging) {
+        document.getElementById('movableWindow').style.left = e.clientX - offsetX + 'px';
+        document.getElementById('movableWindow').style.top = e.clientY - offsetY + 'px';
+      }
+    }
+
+    function stopDragging() {
+      isDragging = false;
+      document.removeEventListener('mousemove', whileDragging);
+      document.removeEventListener('mouseup', stopDragging);
+    }
+
     function toggleStartMenu() {
       var startMenu = document.getElementById('startMenu');
       startMenu.style.display = (startMenu.style.display === 'block') ? 'none' : 'block';
