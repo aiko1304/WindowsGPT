@@ -6,12 +6,12 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden; /* To prevent scrollbars */
     }
 
     .taskbar {
-      background-color: #1e1e1e;
+      background-color: #003366; /* Dark blue */
       height: 40px;
       position: fixed;
       bottom: 0;
@@ -25,7 +25,7 @@
     }
 
     .taskbar-button {
-      background-color: #0078d4;
+      background-color: #0078d4; /* Blue */
       color: white;
       border: none;
       padding: 5px 10px;
@@ -41,12 +41,13 @@
       right: 0;
       overflow: auto;
       padding: 10px;
+      background-color: #f1f1f1; /* Light gray */
     }
 
     .icon {
       width: 50px;
       height: 50px;
-      background-color: #0078d4;
+      background-color: #0078d4; /* Blue */
       color: white;
       display: flex;
       flex-direction: column;
@@ -55,29 +56,47 @@
       margin: 10px;
       float: left;
       cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .window {
       width: 400px;
       height: 300px;
-      background-color: #fff;
-      border: 2px solid #000;
+      background-color: #ffffff;
+      border: 1px solid #999;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       cursor: move;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .title-bar {
-      background-color: #0078d4;
-      color: #fff;
-      padding: 10px;
+      background-color: #003366; /* Dark blue */
+      color: white;
+      padding: 5px;
       user-select: none;
+      display: flex;
+      justify-content: space-between;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
     }
 
     .content {
       padding: 10px;
+    }
+
+    .close-button {
+      background-color: #cc0000; /* Red */
+      color: white;
+      border: none;
+      padding: 3px 5px;
+      cursor: pointer;
+      border-radius: 3px;
+      margin-right: 3px;
     }
 
     /* Start Menu Styles */
@@ -86,20 +105,21 @@
       position: absolute;
       top: 40px; /* Height of the taskbar */
       left: 0;
-      background-color: #1e1e1e;
-      color: white;
+      background-color: #f1f1f1; /* Light gray */
+      color: #333;
       padding: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     .start-menu-button {
-      background-color: #0078d4;
+      background-color: #0078d4; /* Blue */
       color: white;
       border: none;
       padding: 5px 10px;
       cursor: pointer;
       margin-bottom: 5px;
       display: block;
+      border-radius: 3px;
     }
   </style>
 </head>
@@ -123,7 +143,10 @@
   </div>
 
   <div class="window" id="movableWindow">
-    <div class="title-bar" onmousedown="startDragging(event)">Window Title</div>
+    <div class="title-bar" onmousedown="startDragging(event)">
+      Window Title
+      <button class="close-button" onclick="closeWindow()">X</button>
+    </div>
     <div class="content">
       <!-- Your window content goes here -->
       <p>Hello, this is a movable window!</p>
@@ -163,6 +186,11 @@
 
     function openProgram(programName) {
       alert('Opening ' + programName);
+    }
+
+    function closeWindow() {
+      var window = document.getElementById('movableWindow');
+      window.style.display = 'none';
     }
   </script>
 </body>
