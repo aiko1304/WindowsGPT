@@ -22,6 +22,7 @@
       align-items: center;
       padding: 0 10px;
       color: white;
+      z-index: 1;
     }
 
     .taskbar-button {
@@ -72,6 +73,7 @@
       cursor: move;
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 2;
     }
 
     .title-bar {
@@ -109,6 +111,7 @@
       color: #333;
       padding: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 3;
     }
 
     .start-menu-button {
@@ -162,36 +165,4 @@
       offsetX = e.clientX - parseFloat(window.getComputedStyle(document.getElementById('movableWindow')).left);
       offsetY = e.clientY - parseFloat(window.getComputedStyle(document.getElementById('movableWindow')).top);
 
-      document.addEventListener('mousemove', whileDragging);
-      document.addEventListener('mouseup', stopDragging);
-    }
-
-    function whileDragging(e) {
-      if (isDragging) {
-        document.getElementById('movableWindow').style.left = e.clientX - offsetX + 'px';
-        document.getElementById('movableWindow').style.top = e.clientY - offsetY + 'px';
-      }
-    }
-
-    function stopDragging() {
-      isDragging = false;
-      document.removeEventListener('mousemove', whileDragging);
-      document.removeEventListener('mouseup', stopDragging);
-    }
-
-    function toggleStartMenu() {
-      var startMenu = document.getElementById('startMenu');
-      startMenu.style.display = (startMenu.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function openProgram(programName) {
-      alert('Opening ' + programName);
-    }
-
-    function closeWindow() {
-      var window = document.getElementById('movableWindow');
-      window.style.display = 'none';
-    }
-  </script>
-</body>
-</html>
+     
