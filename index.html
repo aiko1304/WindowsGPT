@@ -8,10 +8,11 @@
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       overflow: hidden; /* To prevent scrollbars */
+      background-color: #f0f0f0; /* Light gray background */
     }
 
     .taskbar {
-      background-color: #003366; /* Dark blue */
+      background-color: #2f5f9e; /* Windows 7 taskbar color */
       height: 40px;
       position: fixed;
       bottom: 0;
@@ -25,30 +26,54 @@
       z-index: 1;
     }
 
-    .taskbar-button {
-      background-color: #0078d4; /* Blue */
+    .start-button {
+      background-color: #e8e8e8; /* Start button color */
+      color: #333;
+      border: none;
+      padding: 5px 15px;
+      margin-right: 10px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .start-menu {
+      display: none;
+      position: absolute;
+      bottom: 40px;
+      left: 10px;
+      background-color: #e8e8e8; /* Start menu background color */
+      color: #333;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+    }
+
+    .start-menu-button {
+      background-color: #2f5f9e; /* Windows 7 taskbar color */
       color: white;
       border: none;
       padding: 5px 10px;
-      margin: 0 5px;
       cursor: pointer;
+      margin-bottom: 5px;
+      display: block;
+      border-radius: 3px;
     }
 
     .desktop {
       position: absolute;
-      top: 40px; /* Height of the taskbar */
+      top: 40px;
       bottom: 0;
       left: 0;
       right: 0;
       overflow: auto;
       padding: 10px;
-      background-color: #f1f1f1; /* Light gray */
+      background-color: #f0f0f0; /* Light gray background */
     }
 
     .icon {
-      width: 50px;
-      height: 50px;
-      background-color: #0078d4; /* Blue */
+      width: 80px;
+      height: 80px;
+      background-color: #2f5f9e; /* Windows 7 taskbar color */
       color: white;
       display: flex;
       flex-direction: column;
@@ -62,8 +87,10 @@
     }
 
     .window {
-      width: 400px;
-      height: 300px;
+      width: 500px;
+      max-width: 80%;
+      min-width: 300px;
+      height: 350px;
       background-color: #ffffff;
       border: 1px solid #999;
       position: absolute;
@@ -73,18 +100,24 @@
       cursor: move;
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 2;
+      z-index: 3;
     }
 
     .title-bar {
-      background-color: #003366; /* Dark blue */
+      background-color: #2f5f9e; /* Windows 7 taskbar color */
       color: white;
-      padding: 5px;
+      padding: 8px;
       user-select: none;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
+    }
+
+    .window-title {
+      font-size: 16px;
+      margin-left: 10px;
     }
 
     .content {
@@ -95,59 +128,34 @@
       background-color: #cc0000; /* Red */
       color: white;
       border: none;
-      padding: 3px 5px;
-      cursor: pointer;
-      border-radius: 3px;
-      margin-right: 3px;
-    }
-
-    /* Start Menu Styles */
-    .start-menu {
-      display: none;
-      position: absolute;
-      top: 40px; /* Height of the taskbar */
-      left: 0;
-      background-color: #f1f1f1; /* Light gray */
-      color: #333;
-      padding: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 3;
-    }
-
-    .start-menu-button {
-      background-color: #0078d4; /* Blue */
-      color: white;
-      border: none;
       padding: 5px 10px;
       cursor: pointer;
-      margin-bottom: 5px;
-      display: block;
       border-radius: 3px;
+      margin-right: 5px;
     }
+
   </style>
 </head>
 <body>
   <div class="taskbar">
-    <button class="taskbar-button" onclick="toggleStartMenu()">Start</button>
+    <button class="start-button" onclick="toggleStartMenu()">Start</button>
+    <div class="start-menu" id="startMenu">
+      <button class="start-menu-button" onclick="openProgram('Program 1')">Program 1</button>
+      <button class="start-menu-button" onclick="openProgram('Program 2')">Program 2</button>
+    </div>
     <!-- Add more taskbar buttons as needed -->
   </div>
 
   <div class="desktop">
-    <div class="icon">Icon 1</div>
-    <div class="icon">Icon 2</div>
-    <div class="icon">Icon 3</div>
+    <div class="icon" onclick="openProgram('Icon 1')">Icon 1</div>
+    <div class="icon" onclick="openProgram('Icon 2')">Icon 2</div>
+    <div class="icon" onclick="openProgram('Icon 3')">Icon 3</div>
     <!-- Add more icons as needed -->
-  </div>
-
-  <div class="start-menu" id="startMenu">
-    <button class="start-menu-button" onclick="openProgram('Program 1')">Program 1</button>
-    <button class="start-menu-button" onclick="openProgram('Program 2')">Program 2</button>
-    <!-- Add more start menu items as needed -->
   </div>
 
   <div class="window" id="movableWindow">
     <div class="title-bar" onmousedown="startDragging(event)">
-      Window Title
+      <div class="window-title">Window Title</div>
       <button class="close-button" onclick="closeWindow()">X</button>
     </div>
     <div class="content">
@@ -165,4 +173,36 @@
       offsetX = e.clientX - parseFloat(window.getComputedStyle(document.getElementById('movableWindow')).left);
       offsetY = e.clientY - parseFloat(window.getComputedStyle(document.getElementById('movableWindow')).top);
 
-     
+      document.addEventListener('mousemove', whileDragging);
+      document.addEventListener('mouseup', stopDragging);
+    }
+
+    function whileDragging(e) {
+      if (isDragging) {
+        document.getElementById('movableWindow').style.left = e.clientX - offsetX + 'px';
+        document.getElementById('movableWindow').style.top = e.clientY - offsetY + 'px';
+      }
+    }
+
+    function stopDragging() {
+      isDragging = false;
+      document.removeEventListener('mousemove', whileDragging);
+      document.removeEventListener('mouseup', stopDragging);
+    }
+
+    function toggleStartMenu() {
+      var startMenu = document.getElementById('startMenu');
+      startMenu.style.display = (startMenu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function openProgram(programName) {
+      alert('Opening ' + programName);
+    }
+
+    function closeWindow() {
+      var window = document.getElementById('movableWindow');
+      window.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
